@@ -27,7 +27,7 @@ function renderNotes(req, res) {
         res.write('<ul class="notes">');
         rows.forEach(function (row) {
             res.write('<li>' + escape_html(row.text) + 
-            '<form method="POST">' + // Added a post method form for the Delete button
+                        '<form method="POST">' + // Added a post method form for the Delete button
                           '<input type="hidden" name="id" value="' + escape_html(row.id) + '">' +
                           '<button type="submit">Delete</button>' +
                         '</form>' +
