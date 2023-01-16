@@ -23,7 +23,7 @@ function renderNotes(req, res) {
                   '<h1>AAF Notebook</h1>' +
                   '<form method="POST">' +
                   '<label>Note: <input name="note" value=""></label>' +
-                  '<input name="csrf_denial" value="' + csrf_key + '">' +
+                  '<input type="hidden" name="csrf_denial" value="' + csrf_key + '">' +
                   '<button>Add</button>' +
                   '</form>');
         res.write('<ul class="notes">');
@@ -31,7 +31,7 @@ function renderNotes(req, res) {
             res.write('<li>' + escape_html(row.text) + 
                         '<form method="POST">' + // Added a post method form for the Delete button
                           '<input type="hidden" name="id" value="' + escape_html(row.id) + '">' +
-                          '<input name="csrf_denial" value="' + csrf_key + '">' +
+                          '<input type="hidden" name="csrf_denial" value="' + csrf_key + '">' +
                           '<button type="submit">Delete</button>' +
                         '</form>' +
                       '</li>');
