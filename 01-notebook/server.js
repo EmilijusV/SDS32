@@ -52,7 +52,7 @@ var server = http.createServer(function (req, res) {
                 var form = querystring.parse(body);
                 // Checking if note field exists
                 if (form.note) {        
-                    db.exec('INSERT INTO notes VALUES ("' + form.note + '");', function (err) {
+                    db.run('INSERT INTO notes VALUES (?)', form.note, function (err) {
                         console.error("Added to database: Error? = " + err);
                         res.writeHead(201, {'Content-Type': 'text/html'});
                         renderNotes(req, res);
@@ -60,7 +60,7 @@ var server = http.createServer(function (req, res) {
                 }
                 // Adding the id deletion
                 if (form.id){
-                    db.exec('DELETE FROM notes WHERE rowid=' + form.id + ';', function (err) {
+                    db.run('DELETE FROM notes WHERE rowid=?', form.id, function (err) {
                         console.error("Deleted from database: Error? = " + err);
                         res.writeHead(201, {'Content-Type': 'text/html'});
                         renderNotes(req, res);
