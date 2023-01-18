@@ -54,7 +54,7 @@ var server = http.createServer(function (req, res) {
             req.on('end', function () {
                 var form = querystring.parse(body);
                 // Checking if note field exists
-                if (form.note && form.csrf_denial && form.csrf_denial == csrf_key) {        
+                if (form.note && form.csrf_denial && form.csrf_denial == csrf_key && form.note.length < 150) {        
                     db.run('INSERT INTO notes VALUES (?)', form.note, function (err) {
                         console.error("Added to database: Error? = " + err);
                         res.writeHead(201, {'Content-Type': 'text/html'});
