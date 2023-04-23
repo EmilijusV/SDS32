@@ -73,6 +73,22 @@ To use this app, just use the GUI interface on the internet. It will store and s
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ARCHITECTURE -->
+## Architecture
+
+### Network
+
+| Resource Name   | Resource Type | First IP |  Last IP  | CIDR range | Number of IPs  |
+|-----------------|---------------|----------|-----------|------------|----------------|
+| my_vpc          | AWS VPC       |10.0.0.0  |10.0.3.255 |10.0.0.0/22 |1024            |
+| pub_subnet_a    | AWS VPC       |10.0.0.0  |10.0.0.255 |10.0.0.0/24 |256             |
+| priv_subnet_a   | AWS VPC       |10.0.1.0  |10.0.1.255 |10.0.1.0/24 |256             |
+
+### Architecture diagram
+
+The following is an architecture diagram:
+
+![](AWSDiagram.png)
 
 
 <!-- CONTRIBUTERS -->
