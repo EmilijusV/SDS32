@@ -1,0 +1,18 @@
+Description: Networking architecture
+
+Parameters:
+  VpcCidr:
+    Description: CIDR block for the VPC
+    Type: String
+    Default: "10.0.0.0/22"
+  PubSubnetACidr:
+    Type: String
+    Default: "10.0.0.0/24"
+  StudentName:
+    Type: String
+    Default: "EV-FB"
+
+Resources:
+
+# VPC
+  ~

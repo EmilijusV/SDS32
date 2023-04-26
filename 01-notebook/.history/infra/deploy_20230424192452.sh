@@ -9,7 +9,7 @@ fi
 
 # This script is used to deploy s3 bucket
 STACK_NAME="${STUDENT_NAME}-s3-poems-bucket"
-TEMPLATE_FILE="$(dirname "${BASH_SOURCE[0]}")/structure.yml"
+TEMPLATE_FILE="$(dirname "${BASH_SOURCE[0]}")str.yml"
 AWS_DEFAULT_REGION="eu-west-2"
 POEMS_BUCKET_NAME="${STUDENT_NAME}-poems-bucket"
 

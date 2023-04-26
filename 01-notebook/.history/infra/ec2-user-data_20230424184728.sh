@@ -20,7 +20,7 @@ yum install -y \
 
 # put your own github username here
 echo "Setting up ssh access keys" | tee -a "${logName}"
-curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
+curl -s https://github.com/benh4mmonfin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
 
 # add ec2 user to the docker group which allows docket to run without being a super-user
 usermod -aG docker ec2-user
@@ -55,7 +55,7 @@ curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
 yum -y install nodejs
 
 echo "installing application" | tee -a "${logName}"
-(cd /home/ec2-user && git clone https://github.com/EmilijusV/SDS2.git)
+(cd /home/ec2-user && git clone https://github.com/warwick-cybersecurity-WM145-24/week-16-lab.git)
 
 echo "installing deps and starting application $(date)" | tee -a "${logName}"
 (cd /home/ec2-user/week-16-lab/app && npm install && DEBUG=* PORT=80 npm start)

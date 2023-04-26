@@ -148,8 +148,8 @@ Resources:
             curl \
             git
 
-        echo "Hello, World!" > index.html
-        python3 -m http.server 80
+        echo "Hello, World!" > Index.html
+        python -m http.server 80
 
         ############################################################
         ## 👇👇👇👇👇 application install commands here 👇👇👇👇👇

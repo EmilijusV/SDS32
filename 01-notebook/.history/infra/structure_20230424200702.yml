@@ -77,33 +77,8 @@ Resources:
       VpcId: !Ref EVFBVPC
       SecurityGroupIngress:
         - IpProtocol: "tcp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "udp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "tcp"
-          FromPort: 80
-          ToPort: 80
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "tcp"
-          FromPort: 443
-          ToPort: 443
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "tcp"
-          FromPort: 8080
-          ToPort: 8080
-          CidrIp: "0.0.0.0/0"
-      SecurityGroupEgress:
-        - IpProtocol: "tcp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "udp"
-          FromPort: 0
-          ToPort: 65535
+          FromPort: 22
+          ToPort: 22
           CidrIp: "0.0.0.0/0"
         - IpProtocol: "tcp"
           FromPort: 80
@@ -129,43 +104,8 @@ Resources:
         - !Ref MySecurityGroup
       UserData: !Base64 |
         #!/bin/bash
-        # This script is injected into the AWS vm on creation
-        # and can be used to provision your VM
-        # NB it's run as root, so no need for sudo
+        cat ec2-user-data.sh
 
-        # debug logs are here
-        readonly logName="/var/log/server-setup.log"
-
-        echo "Starting $(date)" | tee -a "${logName}"
-
-        echo "Install required tools" | tee -a "${logName}"
-        yum install -y \
-            docker \
-            iptraf-ng \
-            htop \
-            tmux \
-            vim \
-            curl \
-            git
-
-        echo "Hello, World!" > index.html
-        python3 -m http.server 80
-
-        ############################################################
-        ## 👇👇👇👇👇 application install commands here 👇👇👇👇👇
-
-        echo "installing Nodejs using NVM" | tee -a "${logName}"
-        curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
-        yum -y install nodejs
-
-        echo "installing application" | tee -a "${logName}"
-        (cd /home/ec2-user && git clone https://github.com/EmilijusV/SDS2.git)
-
-        echo "installing deps and starting application $(date)" | tee -a "${logName}"
-        (cd /home/ec2-user/week-16-lab/app && npm install && DEBUG=* PORT=80 npm start)
-
-
+Outputs:
   ElasticIP:
-    Type: 'AWS::EC2::EIP'
-    Properties:
-      InstanceId: !Ref MyEC2Instance
+  

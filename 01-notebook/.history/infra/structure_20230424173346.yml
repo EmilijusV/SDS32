@@ -1,0 +1,80 @@
+Description: Networking architecture
+
+Parameters:
+  VpcCidr:
+    Description: CIDR block for the VPC
+    Type: String
+    Default: "10.0.0.0/22"
+  PubSubnetACidr:
+    Type: String
+    Default: "10.0.0.0/24"
+  StudentName:
+    Type: String
+    Default: "Ben-Hammond"
+
+Resources:
+
+# VPC
+  MyTestVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidr
+      Tags:
+        - Key: Name
+          Value: !Sub "Ben-Hammond-vpc-week-16"
+
+# PubSubnetA
+  PubSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyTestVPC
+      CidrBlock: !Ref PubSubnetACidr
+      AvailabilityZone: "eu-west-2a"
+      Tags:
+        - Key: Name
+          Value: !Sub "Ben-Hammond-week14-pub-subnet-A"
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub "Ben-Hammond-week14-igw"
+
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyTestVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PubRouteA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Sub "Ben-Hammond-week14-RouteTable-Pub-A"
+      VpcId: !Ref MyTestVPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: InternetGateway
+    Properties:
+        RouteTableId: !Ref PubRouteA
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId: !Ref InternetGateway
+
+  PubSubnetRouteTableAssociationA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PubRouteA
+      SubnetId: !Ref PubSubnetA
+
+# # VPC Gateway Attachement
+
+# # SubnetRouteTableAssociationA
+
+# # Route Table Internet Gateway
+
+# # Public Route
+
