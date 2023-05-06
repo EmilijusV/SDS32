@@ -148,7 +148,7 @@ Resources:
             curl \
             git
         
-        echo "Setting up ssh access keys" | tee -a "${logName}"
+        echo "Setting up ssh access key./deploy.shjs" | tee -a "${logName}"
         curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
 
         #echo "Hello, World!" > index.html

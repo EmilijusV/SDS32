@@ -9,8 +9,8 @@ readonly logName="/var/log/server-setup.log"
 echo "Starting $(date)" | sudo tee -a "${logName}"
 
 echo "Install required tools" | sudo tee -a "${logName}"
-sudo yum install -y curl
-sudo yum install -y git
+sudo yum install -y curl \
+    git
 
 # put your own github username here
 echo "Setting up ssh access keys" | sudo tee -a "${logName}"
@@ -27,7 +27,7 @@ sudo curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
 sudo yum -y install nodejs
 
 echo "installing application" | sudo tee -a "${logName}"
-(cd /home/ec2-user && sudo git clone https://github.com/warwick-cybersecurity-WM145-24/aaf-internal-notes-system.git)
+(cd /home/ec2-user && sudo git clone https://github.com/EmilijusV/SDS2.git)
 
 echo "installing deps and starting application $(date)" | sudo tee -a "${logName}"
-(cd /home/ec2-user/SDS2/01-notebook/ && sudo npm install && DEBUG=* PORT=80 npm start)
+(cd /home/ec2-user/week-16-lab/app && sudo npm install && DEBUG=* PORT=80 npm start)

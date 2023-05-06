@@ -147,12 +147,9 @@ Resources:
             vim \
             curl \
             git
-        
-        echo "Setting up ssh access keys" | tee -a "${logName}"
-        curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
 
-        #echo "Hello, World!" > index.html
-        #python3 -m http.server 80
+        echo "Hello, World!" > index.html
+        python3 -m http.server 80
 
         ############################################################
         ## 👇👇👇👇👇 application install commands here 👇👇👇👇👇
@@ -165,7 +162,7 @@ Resources:
         (cd /home/ec2-user && git clone https://github.com/EmilijusV/SDS2.git)
 
         echo "installing deps and starting application $(date)" | tee -a "${logName}"
-        (cd /home/ec2-user/01-notebook && npm install && DEBUG=* PORT=80 npm start)
+        (cd /home/ec2-user/week-16-lab/app && npm install && DEBUG=* PORT=80 npm start)
 
 
   ElasticIP:
@@ -173,5 +170,12 @@ Resources:
     Properties:
       InstanceId: !Ref MyEC2Instance
 
-#
-    
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  MyEIPAssociation:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      InstanceId: !Ref 

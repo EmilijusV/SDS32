@@ -149,7 +149,7 @@ Resources:
             git
         
         echo "Setting up ssh access keys" | tee -a "${logName}"
-        curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
+curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
 
         #echo "Hello, World!" > index.html
         #python3 -m http.server 80
