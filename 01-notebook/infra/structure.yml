@@ -76,14 +76,14 @@ Resources:
       GroupDescription: "Security group for MyEC2Instance"
       VpcId: !Ref EVFBVPC
       SecurityGroupIngress:
-        - IpProtocol: "tcp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "udp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
+        # - IpProtocol: "tcp"
+        #   FromPort: 0
+        #   ToPort: 65535
+        #   CidrIp: "0.0.0.0/0"
+        # - IpProtocol: "udp"
+        #   FromPort: 0
+        #   ToPort: 65535
+        #   CidrIp: "0.0.0.0/0"
         - IpProtocol: "tcp"
           FromPort: 80
           ToPort: 80
@@ -95,16 +95,20 @@ Resources:
         - IpProtocol: "tcp"
           FromPort: 8080
           ToPort: 8080
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: "tcp"
+          FromPort: 22
+          ToPort: 22
           CidrIp: "0.0.0.0/0"
       SecurityGroupEgress:
-        - IpProtocol: "tcp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
-        - IpProtocol: "udp"
-          FromPort: 0
-          ToPort: 65535
-          CidrIp: "0.0.0.0/0"
+        # - IpProtocol: "tcp"
+        #   FromPort: 0
+        #   ToPort: 65535
+        #   CidrIp: "0.0.0.0/0"
+        # - IpProtocol: "udp"
+        #   FromPort: 0
+        #   ToPort: 65535
+        #   CidrIp: "0.0.0.0/0"
         - IpProtocol: "tcp"
           FromPort: 80
           ToPort: 80
@@ -116,6 +120,10 @@ Resources:
         - IpProtocol: "tcp"
           FromPort: 8080
           ToPort: 8080
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: "tcp"
+          FromPort: 22
+          ToPort: 22
           CidrIp: "0.0.0.0/0"
 
 # EC2 instance
@@ -124,6 +132,7 @@ Resources:
     Properties:
       ImageId: "ami-0d76271a8a1525c1a"
       InstanceType: "t2.micro"
+      KeyName: EV-Key
       SubnetId: !Ref PubSubnetA 
       SecurityGroupIds:
         - !Ref MySecurityGroup
@@ -162,10 +171,11 @@ Resources:
         (cd /home/ec2-user && git clone https://github.com/EmilijusV/SDS2.git)
 
         echo "installing deps and starting application $(date)" | tee -a "${logName}"
-        (cd /home/ec2-user/week-16-lab/app && npm install && DEBUG=* PORT=80 npm start)
+        (cd /home/ec2-user/01-notebook && npm install && DEBUG=* PORT=80 npm start)
 
 
   ElasticIP:
     Type: 'AWS::EC2::EIP'
     Properties:
       InstanceId: !Ref MyEC2Instance
+      

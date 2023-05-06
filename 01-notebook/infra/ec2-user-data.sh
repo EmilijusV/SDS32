@@ -20,7 +20,7 @@ yum install -y \
 
 # put your own github username here
 echo "Setting up ssh access keys" | tee -a "${logName}"
-curl -s https://github.com/fin710.keys | tee -a /home/ec2-user/.ssh/authorized_keys
+curl -s https://github.com/EmilijusV.keys | tee -a /home/ec2-user/.ssh/authorized_keys
 
 # add ec2 user to the docker group which allows docket to run without being a super-user
 usermod -aG docker ec2-user
